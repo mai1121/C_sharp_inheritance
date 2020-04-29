@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace practice_inheritance
 {
@@ -43,6 +44,8 @@ namespace practice_inheritance
                 Console.WriteLine(wp2.Show());
                 Console.WriteLine(wp2.Work());
             }
+            //拡張メソッド呼び出し
+            Console.WriteLine("私".Append(10));
         }
     }
     #region Person基底クラスを定義
@@ -121,5 +124,18 @@ namespace practice_inheritance
             return $"今日のメニューは{food}と{drink}です";
         }
 
+    }
+
+    //拡張メソッド定義
+    static class Extension
+    {
+        public static string Append(this string p,int count)
+        {
+            var builder = new StringBuilder();
+            for(var i = 0; i < count; i++){
+                builder.Append("ねこ");
+            }
+            return builder.ToString();
+        }
     }
 }
