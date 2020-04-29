@@ -15,9 +15,17 @@ namespace practice_inheritance
             Console.WriteLine(wp1.Work());
             Console.WriteLine(wp1.Area("六本木"));
             Console.WriteLine(wp1.Show2());
+
+            var ma = new MyAssistant("高橋");
+
+            var lunch = new LunchMenu { 
+            food = "カレー",
+            drink="ラッシー"
+            };
+            Console.WriteLine(lunch.Show());
         }
     }
-    //基底クラスを定義
+    #region Person基底クラスを定義
     class Person
     {
         public string FirstName { get; set; }
@@ -32,7 +40,9 @@ namespace practice_inheritance
             return $"{this.FirstName}{this.LastName}は休職中です";
         }
     }
-    //継承クラスを定義
+    #endregion
+
+    #region WorkingPerson継承クラスを定義
     class WorkingPerson : Person
     {
         public string Work()
@@ -55,5 +65,41 @@ namespace practice_inheritance
         {
             return $"{this.FirstName}{this.LastName}は病気療養中です";
         }
+    }
+    #endregion
+
+
+    #region MyBoss基底クラスを定義
+    class MyBoss
+    {
+        //引数ありのコンストラクター定義（デフォルトコンストラクターではない）
+        public MyBoss(string assistantName)
+        {
+            Console.WriteLine($"{assistantName}の上司です");
+        }
+    }
+    #endregion
+
+    #region MyAssistant継承クラスを定義
+    class MyAssistant :MyBoss
+    {
+        //コンストラクター定義。デフォルトコンストラクターでない場合、baseキーワードで呼び出す必要あり
+        public MyAssistant(string assistantName) :base(assistantName)
+        {
+            Console.WriteLine($"部下の{assistantName}です");
+        }
+    }
+    #endregion
+
+    //継承を禁止するクラス
+    sealed class LunchMenu
+    {
+        public string food { get; set; }
+        public string drink { get; set; }
+        public string Show()
+        {
+            return $"今日のメニューは{food}と{drink}です";
+        }
+
     }
 }
