@@ -23,6 +23,26 @@ namespace practice_inheritance
             drink="ラッシー"
             };
             Console.WriteLine(lunch.Show());
+
+            //アップキャスト。WorkingPersonオブジェクトをPerson型の変数pに代入
+            Person p = new WorkingPerson { FirstName ="木村",LastName="花子"};
+            //継承先で隠蔽されたメソッドの場合、基底クラスのメソッドが呼び出される
+            Console.WriteLine(p.Show());
+            //オーバーライドされたメソッドが呼び出される
+            Console.WriteLine(p.Show2());
+            //ダウンキャスト。pをWorkingPerson型の変数wpに型変換しながら代入する
+            if (p is WorkingPerson wp)//実行時エラー避けるために型チェック
+            {
+                Console.WriteLine(wp.Show());
+                Console.WriteLine(wp.Work());
+            }
+            //ダウンキャスト別構文.キャストに失敗した場合はnullを返す
+            var wp2 = p as WorkingPerson;
+            if (wp2 != null)
+            {
+                Console.WriteLine(wp2.Show());
+                Console.WriteLine(wp2.Work());
+            }
         }
     }
     #region Person基底クラスを定義
